@@ -60,7 +60,7 @@ var lucyBag = {
     bind:function () {
         
     },
-    drawBag:function (ctx) {
+    drawBags:function (ctx) {
         var _this = this;
         _this.luckyBag = new Image();
         _this.luckyBag.src = 'img/bag.png';
@@ -69,11 +69,9 @@ var lucyBag = {
     gameLoop:function (ctx) {
         var _this = this;
         window.requestAnimationFrame(gameLoop);
-        _this.drawBag(ctx);
+        _this.drawBags(ctx);
         //_this.drawChild()
     }
 };
-var drawBag = function () {
-    
-};
+
 lucyBag.init();
