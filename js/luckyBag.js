@@ -2,7 +2,8 @@
  * Created by Administrator on 2016/12/24.
  */
 var lucyBag = {
-    init:function () {
+    num: 10,
+    init: function () {
         var _this = this;
         //加载完图片后render
         var imgs = [
@@ -46,7 +47,7 @@ var lucyBag = {
             };
         }
     },
-    render:function () {
+    render: function () {
         this.w = $(window).width();
         this.h = $(window).height();
         var canvas = document.getElementById('canvas');
@@ -54,23 +55,42 @@ var lucyBag = {
         canvas.width = this.w;
         canvas.height = this.h;
         ctx.clearRect(0, 0, this.w, this.h);
-
+        this.drawBags(ctx);
+        this.drawChild(ctx);
         this.gameLoop(ctx)
     },
-    bind:function () {
-        
+    bind: function () {
+
     },
-    drawBags:function (ctx) {
+    drawBags: function (ctx) {
         var _this = this;
         _this.luckyBag = new Image();
         _this.luckyBag.src = 'img/bag.png';
-        ctx.drawImage(_this.luckyBag,0,0,147,147)
+        _this.luckyBag.renderSize = [50, 50];
+        for (var i = 0; i < _this.num; i++) {
+            var x = Math.random() * (_this.w - _this.luckyBag.renderSize[0]);
+            var y = Math.random() * (_this.h - _this.luckyBag.renderSize[1]);
+            ctx.drawImage(_this.luckyBag, x, y, _this.luckyBag.renderSize[0], _this.luckyBag.renderSize[1])
+        }
     },
-    gameLoop:function (ctx) {
+    drawChild: function (ctx) {
         var _this = this;
-        window.requestAnimationFrame(gameLoop);
-        _this.drawBags(ctx);
-        //_this.drawChild()
+        _this.child = new Image();
+        _this.child.src = 'img/child.png';
+        _this.child.renderSize = [80, 80];
+        _this.child.position = [(_this.w - _this.child.renderSize[0]) / 2, _this.h - _this.child.renderSize[1]];
+        ctx.drawImage(_this.child, _this.child.position[0], _this.child.position[1], _this.child.renderSize[0], _this.child.renderSize[1])
+    },
+    gameLoop: function (ctx) {
+        var _this = this;
+        function animationRun(){
+            window.cancelAnimationFrame(_this.loopId);//不清理会动画积累
+            _this.loopBags(ctx);
+            _this.loopLandmine(ctx);
+            _this.loopId = window.requestAnimationFrame(animationRun);
+
+        }
+        animationRun();
     }
 };
 
