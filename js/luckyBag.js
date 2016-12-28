@@ -4,7 +4,7 @@
 var lucyBag = {
     w: $(window).width(),
     h: $(window).height(),
-    bagNum: 20,//bag的数量
+    bagNum: 10,//bag的数量
     landmineNum: 5,//地雷的数量
     bags: [],//bag的数组
     landmines : [],//地雷的数组
@@ -75,7 +75,7 @@ var lucyBag = {
         _this.gameLoop(ctx);
         _this.bind();
         _this.countTime({
-            duration:10,
+            duration:30,
             step:0.01,
             ele:$('.time'),
             handler4ToTime:function(){
@@ -85,7 +85,8 @@ var lucyBag = {
     },
     drawBags: function (ctx) {
         var _this = this;
-        _this.bagSpeed = _this.h / 3000;
+        _this.maxBagSpeed = _this.h / 1000;//福袋最大的速度
+        _this.minBagSpeed = _this.h / 3000;//福袋最小的速度
         for (var i = 0; i < _this.bagNum; i++) {
             _this.bags[i] = {};
             _this.bags[i].img = new Image();
@@ -96,6 +97,7 @@ var lucyBag = {
             var x = Math.random() * (_this.w - _this.bags[i].renderSize[0]);
             var y = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h;
             _this.bags[i].position = [x, y];
+            _this.bags[i].speed = Math.random() * (_this.maxBagSpeed - _this.minBagSpeed) + _this.minBagSpeed;
             ctx.drawImage(_this.bags[i].img, _this.bags[i].position[0], _this.bags[i].position[1], _this.bags[i].renderSize[0], _this.bags[i].renderSize[1])
         }
     },
