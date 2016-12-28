@@ -4,13 +4,20 @@
 var lucyBag = {
     w: $(window).width(),
     h: $(window).height(),
-    num: 20,//bag的数量
+    bagNum: 20,//bag的数量
+    landmineNum: 5,//地雷的数量
     bags: [],//bag的数组
-    lastTime: 0,//两次时间间隔的上一次shijian
-    frameS: 0,//一帧走的距离
+    landmines : [],//地雷的数组
+    lastTime: 0,//两次时间间隔的上一次时间
+    bagS: 0,//一帧福袋走的距离
+    landMineS: 0,//一帧雷走的距离
     flag: false,//是否点在小人上
     maxBag:100,//最大福袋的尺寸
     minBag:50,//最小福袋的尺寸
+    maxLandMine:100,//最大福袋的尺寸
+    minLandMine:50,//最小福袋的尺寸
+    score: 0,//分值
+    timer:null,//30秒倒计时
     init: function () {
         var _this = this;
         //加载完图片后render
@@ -56,20 +63,30 @@ var lucyBag = {
         }
     },
     render: function () {
+        var _this = this;
         var canvas = document.getElementById('canvas');
         var ctx = canvas.getContext('2d');
-        canvas.width = this.w;
-        canvas.height = this.h;
-        ctx.clearRect(0, 0, this.w, this.h);
-        this.drawBags(ctx);
-        this.drawChild(ctx);
-        this.gameLoop(ctx);
-        this.bind()
+        canvas.width = _this.w;
+        canvas.height = _this.h;
+        ctx.clearRect(0, 0, _this.w, _this.h);
+        _this.drawBags(ctx);
+        _this.drawLandmine(ctx);
+        _this.drawChild(ctx);
+        _this.gameLoop(ctx);
+        _this.bind();
+        _this.countTime({
+            duration:10,
+            step:0.01,
+            ele:$('.time'),
+            handler4ToTime:function(){
+                _this.gameOver();
+            }
+        });
     },
     drawBags: function (ctx) {
         var _this = this;
         _this.bagSpeed = _this.h / 3000;
-        for (var i = 0; i < _this.num; i++) {
+        for (var i = 0; i < _this.bagNum; i++) {
             _this.bags[i] = {};
             _this.bags[i].img = new Image();
             _this.bags[i].img.src = 'img/bag.png';
@@ -80,6 +97,22 @@ var lucyBag = {
             var y = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h;
             _this.bags[i].position = [x, y];
             ctx.drawImage(_this.bags[i].img, _this.bags[i].position[0], _this.bags[i].position[1], _this.bags[i].renderSize[0], _this.bags[i].renderSize[1])
+        }
+    },
+    drawLandmine:function (ctx) {
+        var _this = this;
+        _this.landMineSpeed = _this.h / 3000;
+        for (var i = 0; i < _this.landmineNum; i++) {
+            _this.landmines[i] = {};
+            _this.landmines[i].img = new Image();
+            _this.landmines[i].img.src = 'img/child.png';
+            var landmineW = Math.random()*(_this.maxLandMine - _this.minLandMine) + _this.minLandMine;
+            var landmineH = landmineW * 1334/1334;
+            _this.landmines[i].renderSize = [landmineW, landmineH];
+            var x = Math.random() * (_this.w - _this.landmines[i].renderSize[0]);
+            var y = Math.random() * (_this.h - _this.landmines[i].renderSize[1]) - _this.h;
+            _this.landmines[i].position = [x, y];
+            ctx.drawImage(_this.landmines[i].img, _this.landmines[i].position[0], _this.landmines[i].position[1], _this.landmines[i].renderSize[0], _this.landmines[i].renderSize[1])
         }
     },
     drawChild: function (ctx) {
@@ -96,18 +129,15 @@ var lucyBag = {
     },
     gameLoop: function (ctx) {
         var _this = this;
-
         function animationRun() {
             window.cancelAnimationFrame(_this.loopId);//不清理会动画积累
-            /*//计时
-             timeGap = Date.now() - _this.initTime - _this.pauseTime;
-             seconds = Math.round(timeGap / 10);
-             _this.$time.text(seconds / 100 + 's');*/
             //位移
             var curTime = Date.now();
             if (_this.lastTime > 0) {
-                _this.frameS = _this.bagSpeed * 17;
-                //_this.s = _this.speed * (curTime - _this.lastTime);
+                _this.bagS = _this.bagSpeed * 17;
+                _this.landMineS = _this.landMineSpeed * 17;
+                //_this.bagS  = _this.bagSpeed * (curTime - _this.lastTime);
+                //_this.landMineS = _this.landMineSpeed * (curTime - _this.lastTime);
             }
             _this.lastTime = curTime;
             //清除
@@ -117,25 +147,40 @@ var lucyBag = {
             _this.loopLandmine(ctx);//地雷
             _this.loopId = window.requestAnimationFrame(animationRun);
         }
-
         animationRun();
     },
     loopBags: function (ctx) {
         var _this = this;
         for (var i = 0; i < _this.bags.length; i++) {
             if (_this.bags[i].position[1] >= _this.h || _this.checkCollision(_this.bags[i])) {
+                if(_this.checkCollision(_this.bags[i])){
+                    _this.score += 10;
+                    $('.score').text(_this.score)
+                }
                 _this.bags[i].position[0] = Math.random() * (_this.w - _this.bags[i].renderSize[0]);
                 _this.bags[i].position[1] = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h
             } else {
-                _this.bags[i].position[1] = _this.bags[i].position[1] + _this.frameS;
+                _this.bags[i].position[1] = _this.bags[i].position[1] + _this.bagS;
             }
             ctx.drawImage(_this.bags[i].img, _this.bags[i].position[0], _this.bags[i].position[1], _this.bags[i].renderSize[0], _this.bags[i].renderSize[1])
         }
     },
     loopLandmine: function (ctx) {
-
+        var _this = this;
+        for (var i = 0; i < _this.landmines.length; i++) {
+            if (_this.landmines[i].position[1] >= _this.h || _this.checkCollision(_this.landmines[i])) {
+                if(_this.checkCollision(_this.landmines[i])){
+                    _this.score -= 10;
+                    $('.score').text(_this.score)
+                }
+                _this.landmines[i].position[0] = Math.random() * (_this.w - _this.landmines[i].renderSize[0]);
+                _this.landmines[i].position[1] = Math.random() * (_this.h - _this.landmines[i].renderSize[1]) - _this.h
+            } else {
+                _this.landmines[i].position[1] = _this.landmines[i].position[1] + _this.landMineS;
+            }
+            ctx.drawImage(_this.landmines[i].img, _this.landmines[i].position[0], _this.landmines[i].position[1], _this.landmines[i].renderSize[0], _this.landmines[i].renderSize[1])
+        }
     },
-
     bind: function () {
         var _this = this;
         var initX, moveY, moveX;
@@ -172,11 +217,34 @@ var lucyBag = {
     checkCollision: function (bagItem) {
         var _this = this;
         if (bagItem.position[1] + bagItem.renderSize[1] >= _this.child.position[1] &&
-            ((bagItem.position[0] > _this.child.position[0] && bagItem.position[0] < _this.child.position[0] + _this.child.renderSize[0]) ||
-            (bagItem.position[0] + bagItem.renderSize[0] > _this.child.position[0] && bagItem.position[0] + bagItem.renderSize[0] < _this.child.position[0] + _this.child.renderSize[0]))
+            (
+                (bagItem.position[0] > _this.child.position[0] && bagItem.position[0] < _this.child.position[0] + _this.child.renderSize[0]) ||
+                (bagItem.position[0] + bagItem.renderSize[0] > _this.child.position[0] && bagItem.position[0] + bagItem.renderSize[0] < _this.child.position[0] + _this.child.renderSize[0]) ||
+                (bagItem.position[0] < _this.child.position[0] && bagItem.position[0] + bagItem.renderSize[0] > _this.child.position[0] + _this.child.renderSize[0])
+            )
         ) {
-            return true
+            return true 
         }
+    },
+    //倒计时
+    countTime:function (cfg){
+        var _this = this;
+        _this.timer = setInterval(cutTime,cfg.step*1000);
+        function cutTime(){
+            if(cfg.duration <= 0.01){
+                cfg.ele.text(0);
+                clearInterval(_this.timer);
+                cfg.handler4ToTime();
+            }else{
+                cfg.duration = cfg.duration - cfg.step;
+                cfg.ele.text((cfg.duration).toFixed(2))
+            }
+        }
+    },
+    //游戏结束
+    gameOver:function () {
+        var _this = this;
+        window.cancelAnimationFrame(_this.loopId);
     }
 };
 
