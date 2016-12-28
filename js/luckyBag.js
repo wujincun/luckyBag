@@ -18,6 +18,7 @@ var lucyBag = {
     minLandMine:50,//最小福袋的尺寸
     score: 0,//分值
     timer:null,//30秒倒计时
+    timeGap : 0,//每一帧的时间间隔
     init: function () {
         var _this = this;
         //加载完图片后render
@@ -75,7 +76,7 @@ var lucyBag = {
         _this.gameLoop(ctx);
         _this.bind();
         _this.countTime({
-            duration:10,
+            duration:30,
             step:0.01,
             ele:$('.time'),
             handler4ToTime:function(){
@@ -85,7 +86,8 @@ var lucyBag = {
     },
     drawBags: function (ctx) {
         var _this = this;
-        _this.bagSpeed = _this.h / 3000;
+        _this.maxBagSpeed = _this.h / 1000;//福袋最大的速度
+        _this.minBagSpeed = _this.h / 3000;//福袋最小的速度
         for (var i = 0; i < _this.bagNum; i++) {
             _this.bags[i] = {};
             _this.bags[i].img = new Image();
@@ -96,12 +98,14 @@ var lucyBag = {
             var x = Math.random() * (_this.w - _this.bags[i].renderSize[0]);
             var y = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h;
             _this.bags[i].position = [x, y];
+            _this.bags[i].speed = Math.random() * (_this.maxBagSpeed - _this.minBagSpeed) + _this.minBagSpeed;
             ctx.drawImage(_this.bags[i].img, _this.bags[i].position[0], _this.bags[i].position[1], _this.bags[i].renderSize[0], _this.bags[i].renderSize[1])
         }
     },
     drawLandmine:function (ctx) {
         var _this = this;
-        _this.landMineSpeed = _this.h / 3000;
+        _this.maxLandMineSpeed= _this.h / 1000;//福袋最大的速度
+        _this.minLandMineSpeed = _this.h / 3000;//福袋最小的速度
         for (var i = 0; i < _this.landmineNum; i++) {
             _this.landmines[i] = {};
             _this.landmines[i].img = new Image();
@@ -112,6 +116,7 @@ var lucyBag = {
             var x = Math.random() * (_this.w - _this.landmines[i].renderSize[0]);
             var y = Math.random() * (_this.h - _this.landmines[i].renderSize[1]) - _this.h;
             _this.landmines[i].position = [x, y];
+            _this.landmines[i].speed = Math.random() * (_this.maxLandMineSpeed - _this.minLandMineSpeed) + _this.minLandMineSpeed;
             ctx.drawImage(_this.landmines[i].img, _this.landmines[i].position[0], _this.landmines[i].position[1], _this.landmines[i].renderSize[0], _this.landmines[i].renderSize[1])
         }
     },
@@ -134,10 +139,7 @@ var lucyBag = {
             //位移
             var curTime = Date.now();
             if (_this.lastTime > 0) {
-                _this.bagS = _this.bagSpeed * 17;
-                _this.landMineS = _this.landMineSpeed * 17;
-                //_this.bagS  = _this.bagSpeed * (curTime - _this.lastTime);
-                //_this.landMineS = _this.landMineSpeed * (curTime - _this.lastTime);
+                _this.timeGap = curTime - _this.lastTime;
             }
             _this.lastTime = curTime;
             //清除
@@ -160,7 +162,7 @@ var lucyBag = {
                 _this.bags[i].position[0] = Math.random() * (_this.w - _this.bags[i].renderSize[0]);
                 _this.bags[i].position[1] = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h
             } else {
-                _this.bags[i].position[1] = _this.bags[i].position[1] + _this.bagS;
+                _this.bags[i].position[1] = _this.bags[i].position[1] + _this.bags[i].speed * _this.timeGap;
             }
             ctx.drawImage(_this.bags[i].img, _this.bags[i].position[0], _this.bags[i].position[1], _this.bags[i].renderSize[0], _this.bags[i].renderSize[1])
         }
@@ -176,7 +178,7 @@ var lucyBag = {
                 _this.landmines[i].position[0] = Math.random() * (_this.w - _this.landmines[i].renderSize[0]);
                 _this.landmines[i].position[1] = Math.random() * (_this.h - _this.landmines[i].renderSize[1]) - _this.h
             } else {
-                _this.landmines[i].position[1] = _this.landmines[i].position[1] + _this.landMineS;
+                _this.landmines[i].position[1] = _this.landmines[i].position[1] + _this.landmines[i].speed * _this.timeGap;
             }
             ctx.drawImage(_this.landmines[i].img, _this.landmines[i].position[0], _this.landmines[i].position[1], _this.landmines[i].renderSize[0], _this.landmines[i].renderSize[1])
         }
