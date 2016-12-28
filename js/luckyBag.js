@@ -9,6 +9,8 @@ var lucyBag = {
     lastTime: 0,//两次时间间隔的上一次shijian
     frameS: 0,//一帧走的距离
     flag: false,//是否点在小人上
+    maxBag:100,//最大福袋的尺寸
+    minBag:50,//最小福袋的尺寸
     init: function () {
         var _this = this;
         //加载完图片后render
@@ -71,7 +73,9 @@ var lucyBag = {
             _this.bags[i] = {};
             _this.bags[i].img = new Image();
             _this.bags[i].img.src = 'img/bag.png';
-            _this.bags[i].renderSize = [50, 50];
+            var bagW = Math.random()*(_this.maxBag - _this.minBag) + _this.minBag;
+            var bagH = bagW * 1334/1334;
+            _this.bags[i].renderSize = [bagW, bagH];
             var x = Math.random() * (_this.w - _this.bags[i].renderSize[0]);
             var y = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h;
             _this.bags[i].position = [x, y];
@@ -84,7 +88,10 @@ var lucyBag = {
         _this.child.img = new Image();
         _this.child.img.src = 'img/child.png';
         _this.child.renderSize = [80, 80];
-        _this.child.position = [(_this.w - _this.child.renderSize[0]) / 2, _this.h - _this.child.renderSize[1]];
+        var x = (_this.w - _this.child.renderSize[0]) / 2;
+        var y =  _this.h - _this.child.renderSize[1];
+        _this.child.position = [x,y];
+        _this.child.initPositionX = x;
         ctx.drawImage(_this.child.img, _this.child.position[0], _this.child.position[1], _this.child.renderSize[0], _this.child.renderSize[1])
     },
     gameLoop: function (ctx) {
@@ -116,7 +123,7 @@ var lucyBag = {
     loopBags: function (ctx) {
         var _this = this;
         for (var i = 0; i < _this.bags.length; i++) {
-            if (_this.bags[i].position[1] >= _this.h || _this.checkCollision()) {
+            if (_this.bags[i].position[1] >= _this.h || _this.checkCollision(_this.bags[i])) {
                 _this.bags[i].position[0] = Math.random() * (_this.w - _this.bags[i].renderSize[0]);
                 _this.bags[i].position[1] = Math.random() * (_this.h - _this.bags[i].renderSize[1]) - _this.h
             } else {
@@ -128,13 +135,7 @@ var lucyBag = {
     loopLandmine: function (ctx) {
 
     },
-    //碰撞检测
-    checkCollision: function () {
-        var _this = this;
-        if (_this.child.position) {
 
-        }
-    },
     bind: function () {
         var _this = this;
         var initX, moveY, moveX;
@@ -151,20 +152,31 @@ var lucyBag = {
             if (_this.flag) {// 小人随手移动一定距离
                 moveX = e.targetTouches[0].pageX;
                 distanceX = moveX - initX;
-                var x = _this.child.position[0] + distanceX/2;
-                if (x <= 0) {
+                _this.positionX = _this.child.initPositionX + distanceX;
+                if (_this.positionX <= 0) {
                     _this.child.position[0] = 0
-                } else if (x >= _this.w - _this.child.renderSize[0]) {
+                } else if (_this.positionX >= _this.w - _this.child.renderSize[0]) {
                     _this.child.position[0] = _this.w - _this.child.renderSize[0]
                 } else {
-                    _this.child.position[0] = _this.child.position[0] + distanceX
+                    _this.child.position[0] = _this.positionX;
                 }
             }
         });
         canvas.addEventListener('touchend', function (e) {
             e.preventDefault();
-            _this.flag = false
+            _this.flag = false;
+            _this.child.initPositionX = _this.positionX
         });
+    },
+    //碰撞检测
+    checkCollision: function (bagItem) {
+        var _this = this;
+        if (bagItem.position[1] + bagItem.renderSize[1] >= _this.child.position[1] &&
+            ((bagItem.position[0] > _this.child.position[0] && bagItem.position[0] < _this.child.position[0] + _this.child.renderSize[0]) ||
+            (bagItem.position[0] + bagItem.renderSize[0] > _this.child.position[0] && bagItem.position[0] + bagItem.renderSize[0] < _this.child.position[0] + _this.child.renderSize[0]))
+        ) {
+            return true
+        }
     }
 };
 
