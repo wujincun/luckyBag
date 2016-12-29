@@ -15,7 +15,6 @@ a{ text-decoration:none;}
 //game
 @red:#fb0c2c;
 #gameArea{
-  //header
   #gameHead{
     position: absolute;
     left: 0;
@@ -48,7 +47,7 @@ a{ text-decoration:none;}
       background-size: contain;
     }
   }
-  .countTime{
+  #countTime{
     background-color: rgba(0,0,0,0.5);
     position: fixed;
     left:0;
@@ -82,24 +81,9 @@ a{ text-decoration:none;}
       background-size: contain;
     }
   }
-  #jumpHint{
-    display: none;
-    background-color: rgba(0,0,0,0.3);
-    position: fixed;
-    left:0;
-    top:0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    .hintArrow{
-      background: url("../img/game/arrow.png") left center no-repeat;
-      width: 0.95rem;
-      height: 2rem;
-      background-size: contain;
-      margin: 50% auto 0;
-    }
-  }
 }
+
+
 .popContainer{
   position: fixed;
   left: 0;
@@ -108,9 +92,13 @@ a{ text-decoration:none;}
   height: 100%;
   background-color: rgba(0,0,0,.3);
   display: none;
-  .red{
-    color: @red;
-  }
+}
+#timeOut{
+  background: url("../img/game/clock.png") left center no-repeat;
+  width: 263px;
+  height: 296px;
+  background-size: contain;
+  margin: auto;
 }
 #gamePopContainer{
 
