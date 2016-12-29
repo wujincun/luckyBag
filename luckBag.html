@@ -16,49 +16,57 @@
     </div>
     <canvas id="canvas"></canvas>
 </div>
-<div id="timeOut" class="popContainer">
-    <div class="clock"></div>
+<div id="popArea">
+    <div class="popContentArea">
+        <div class="clock popContent"></div>
+        <div class="successPop popContent">
+            <div class="successText">
+                <p>您共计收到<span></span>个福袋</p>
+                <p>成功累积<span></span>点福气值</p>
+            </div>
+            <ul class="bags clearfix">
+                <li class="bag"></li>
+                <li class="bag"></li>
+                <li class="bag"></li>
+            </ul>
+            <div class="close"></div>
+        </div>
+        <div class="failPop popContent">
+            <div class="btnArea clearfix">
+                <a class="share"></a>
+                <a class="playAgain"></a>
+            </div>
+            <div class="close"></div>
+        </div>
+        <div class="getCouponPop popContent">
+            <p class="couponInfo">您已经获得<span class="couponMoneyNum">3</span>元满减券<span class="red">1</span>张</p>
+            <p class="myCoupon">详情请查询<a href="">"我的抵用券"</a></p>
+            <a href="" class="share"></a>
+            <div class="close"></div>
+        </div>
+        <div class="noCouponPop popContent">
+            <p class="couponInfo">很遗憾，未中奖</p>
+            <p class="myCoupon">分享可增加中奖概率哦</p>
+            <a href="" class="share"></a>
+            <div class="close"></div>
+        </div>
+        <div class="changeCouponPop popContent">
+            <div class="changeText">
+                <p>您已成功领取<span></span></p>
+                <p>兑换码<span></span></p>
+            </div>
+            <a href="" class="change"></a>
+            <div class="close"></div>
+        </div>
+    </div>
+    <div class="restArea">
+        <div class="mask"></div>
+        <div class="shareHint"></div>
+    </div>
 </div>
-<div id="gamePopContainer" class="popContainer">
-    <div class="successPop successOrFail">
-        <p class="text">本次顺利跨越<span class="num red">10</span>个障碍，积分<span class="score red">100</span>分</p>
-        <ul class="couponBags">
-            <li class="couponBag"></li>
-            <li class="couponBag"></li>
-            <li class="couponBag"></li>
-        </ul>
-        <div class="close"></div>
-    </div>
-    <div class="failPop successOrFail">
-        <div class="text">
-            <p >本次积分<span class="score red">10</span>分</p>
-            <p >积分达到<span class="red">50</span>分才可参与抽奖</p>
-        </div>
-        <div class="buttonsArea">
-            <a class="share" href=""></a>
-            <a class="playAgain" href=""></a>
-        </div>
-        <div class="close"></div>
-    </div>
-</div>
-<div id="resultPopContainer" class="popContainer">
-    <div class="getCouponPop resultPop">
-        <div class="text">
-            <p>您已经获得<span class="couponMoneyNum red">3</span>元满减券<span class="red">1</span>张</p>
-            <p>详情查询<a href="" class="red">"我的抵用券"</a></p>
-        </div>
-        <a href="" class="share"></a>
-        <div class="close"></div>
-    </div>
-    <div class="noCouponPop resultPop">
-        <div class="text">
-            <p>很遗憾，未中奖</p>
-            <p class="red noCouponHint">分享给好友可增加中奖几率哦</p>
-        </div>
-        <a class="share"></a>
-        <div class="close"></div>
-    </div>
-</div>
+
+
+
 <script src="js/flexible.js"></script>
 <script src="js/zepto.min.js"></script>
 <script src="js/luckyBag.js"></script>

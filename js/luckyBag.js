@@ -2,10 +2,12 @@
  * Created by Administrator on 2016/12/24.
  */
 var lucyBag = {
+    $popContentArea : $('.popContentArea'),
+    $restArea : $('.restArea'),
     w: $(window).width(),
     h: $(window).height(),
     bagNum: 8,//bag的数量
-    landmineNum: 5,//地雷的数量
+    landmineNum: 3,//地雷的数量
     bags: [],//bag的数组
     landmines : [],//地雷的数组
     scores:[],//+10的分数提示数组
@@ -14,6 +16,9 @@ var lucyBag = {
     score: 0,//分值
     timer:null,//30秒倒计时
     timeGap : 0,//每一帧的时间间隔
+    API:{
+        getResult:''
+    },
     init: function () {
         var _this = this;
         //加载完图片后render
@@ -85,8 +90,8 @@ var lucyBag = {
                 $('#countTime').hide();
                 _this.gameLoop(ctx);
                 _this.bind();
-                _this.countTime({
-                    duration:30,
+                _this.countDownTime({
+                    duration:10,
                     step:0.01,
                     ele:$('.time'),
                     handler4ToTime:function(){
@@ -269,6 +274,17 @@ var lucyBag = {
             _this.flag = false;
             _this.child.initPositionX = _this.positionX
         });
+        _this.$popContentArea.on('click','.popContent .close',function () {
+            _this.$popContentArea.hide();
+            _this.$restArea.hide()
+        })
+        _this.$popContentArea.on('click','.successPop .bags .bag',function(){
+            $.ajax({
+                
+            }).done(function (data) {
+                
+            })
+        });
     },
     //碰撞检测
     checkCollision: function (bagItem) {
@@ -284,7 +300,7 @@ var lucyBag = {
         }
     },
     //倒计时
-    countTime:function (cfg){
+    countDownTime:function (cfg){
         var _this = this;
         _this.timer = setInterval(cutTime,cfg.step*1000);
         function cutTime(){
@@ -301,8 +317,23 @@ var lucyBag = {
     //游戏结束
     gameOver:function () {
         var _this = this;
+        var $clock = _this.$popContentArea.find('.clock');
         window.cancelAnimationFrame(_this.loopId);
-        
+        _this.$restArea.find('.mask').show().siblings().hide();
+        $clock.show().siblings().hide();
+        setTimeout(function(){
+             $clock.hide();
+            _this.handleResult();
+        },1000)
+    },
+    //闹钟消失后的接口、弹窗处理
+    handleResult:function () {
+        var _this = this;
+        if(_this.score >= 80){
+            _this.$popContentArea.find('.successPop').show().siblings().hide();
+        }else{
+            _this.$popContentArea.find('.failPop').show().siblings().hide()
+        }
     }
 };
 
