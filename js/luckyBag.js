@@ -91,7 +91,7 @@ var lucyBag = {
                 _this.gameLoop(ctx);
                 _this.bind();
                 _this.countDownTime({
-                    duration:10,
+                    duration:30,
                     step:0.01,
                     ele:$('.time'),
                     handler4ToTime:function(){
