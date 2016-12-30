@@ -191,12 +191,12 @@ var lucyBag = {
         for (var i = 0; i < _this.bags.length; i++) {
             if (_this.bags[i].position[1] >= _this.h || _this.checkCollision(_this.bags[i])) {
                 if(_this.checkCollision(_this.bags[i])){
-                    _this.score += 10;
+                    _this.score += 5;
                     $('.score').text(_this.score);
                     var score = {};
                     score.img = new Image();
                     score.img.src = "img/game/addScore.png";
-                    score.renderSize = [_this.w*73/640,_this.w*30/640]; //73*30
+                    score.renderSize = [_this.w*45/640,_this.w*27/640]; //45*27
                     score.speed = (50 * _this.h/1136)/500;
                     score.position = [_this.child.position[0] + (_this.child.renderSize[0] - score.renderSize[0])/2,_this.child.position[1]]
                     _this.scores.push(score);

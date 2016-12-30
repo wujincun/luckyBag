@@ -110,9 +110,21 @@ a{ text-decoration:none;}
     }
 }
 .part1{
+  position: relative;
   background: url("../img/h5/luckyBagH5Background_01.jpg");
   width: 640px;
   height: 526px;
+  .rule{
+    position: absolute;
+    top: 24px;
+    right: 26px;
+    font-size: 34px;
+    line-height: 34px;
+    color: #91000a;
+    font-weight: bold;
+    padding-bottom: 3px;
+    border-bottom: 2px solid #91000a;
+  }
 }
 .part2{
   background: url("../img/h5/luckyBagH5Background_02.jpg");
@@ -176,4 +188,32 @@ a{ text-decoration:none;}
   width: 640px;
   height: 301px;
   margin-top: -.1rem;
+}
+.rulePop{
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  z-index: 10;
+  .ruleContent{
+    background: url("../img/h5/rule.png") center center no-repeat;
+    width: 525px;
+    height: 612px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
+    .close{
+      position: absolute;
+      top: -130px;
+      right: -50px;
+      background: url(../img/h5/close.png) center center no-repeat;
+      width: 125px;
+      height: 125px;
+    }
+  }
 }
