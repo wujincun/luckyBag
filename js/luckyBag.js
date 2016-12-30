@@ -17,7 +17,7 @@ var lucyBag = {
     timer:null,//30秒倒计时
     timeGap : 0,//每一帧的时间间隔
     API:{
-        getResult:''
+        getResult:'mock/getResult.json'
     },
     init: function () {
         var _this = this;
@@ -277,12 +277,28 @@ var lucyBag = {
         _this.$popContentArea.on('click','.popContent .close',function () {
             _this.$popContentArea.hide();
             _this.$restArea.hide()
-        })
+        });
+        _this.$popContentArea.on('click','.popContent .share',function(){
+            _this.$restArea.find('.shareHint').show();
+        });
         _this.$popContentArea.on('click','.successPop .bags .bag',function(){
             $.ajax({
-                
+                url:_this.API.getResult,
+                type:'GET',
+                dataType:'json',
+                data:{
+
+                }
             }).done(function (data) {
-                
+                var code = data.code;
+                if(code == 200){
+                    var $getCouponPop = _this.$popContentArea.find('.getCouponPop');
+                    $getCouponPop.find('.couponMoneyNum').text(data.result.coupon);
+                    $getCouponPop.show().siblings().hide();
+                }else{
+                    var $noCouponPop = _this.$popContentArea.find('.noCouponPop');
+                    $noCouponPop.show().siblings().hide();
+                }
             })
         });
     },
@@ -326,7 +342,7 @@ var lucyBag = {
             _this.handleResult();
         },1000)
     },
-    //闹钟消失后的接口、弹窗处理
+    //成功失败的弹窗处理
     handleResult:function () {
         var _this = this;
         if(_this.score >= 80){
