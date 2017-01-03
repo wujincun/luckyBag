@@ -67,6 +67,16 @@ a {
   float: right;
 }
 
+@-webkit-keyframes gameBag {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: 5.5625rem;
+  }
+}
+
 @keyframes gameBag {
   from {
     left: 0;
@@ -74,6 +84,16 @@ a {
 
   to {
     left: 5.5625rem;
+  }
+}
+
+@-webkit-keyframes gameText {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 5.5625rem;
   }
 }
 
@@ -87,6 +107,13 @@ a {
   }
 }
 
+@-webkit-keyframes spread {
+  to {
+    left: 0;
+    right: 0;
+  }
+}
+
 @keyframes spread {
   to {
     left: 0;
@@ -94,9 +121,21 @@ a {
   }
 }
 
+@-webkit-keyframes leftScroll {
+  from {
+    left: 4.203125rem;
+  }
+}
+
 @keyframes leftScroll {
   from {
     left: 4.203125rem;
+  }
+}
+
+@-webkit-keyframes rightScroll {
+  from {
+    right: 4.1875rem;
   }
 }
 
@@ -150,18 +189,21 @@ a {
 }
 
 .part .hrefArea.active .leftScroll {
-  animation: leftScroll 2s;
+  -webkit-animation: leftScroll 2s;
+          animation: leftScroll 2s;
 }
 
 .part .hrefArea.active .rightScroll {
-  animation: rightScroll 2s;
+  -webkit-animation: rightScroll 2s;
+          animation: rightScroll 2s;
 }
 
 .part .hrefArea.active .food,
 .part .hrefArea.active .song,
 .part .hrefArea.active .beauty,
 .part .hrefArea.active .knead {
-  animation: spread 1.6s linear forwards;
+  -webkit-animation: spread 1.6s linear forwards;
+          animation: spread 1.6s linear forwards;
 }
 
 .part1 {
@@ -198,7 +240,8 @@ a {
 }
 
 .part2 .gameStart .gameBag {
-  animation: gameBag 2s;
+  -webkit-animation: gameBag 2s;
+          animation: gameBag 2s;
   position: absolute;
   left: 5.5625rem;
   top: 0;
@@ -210,7 +253,8 @@ a {
 
 .part2 .gameStart .gameText {
   width: 5.5625rem;
-  animation: gameText 2s;
+  -webkit-animation: gameText 2s;
+          animation: gameText 2s;
   margin: 0.6875rem 0 0 0.5rem;
   overflow: hidden;
 }
@@ -288,7 +332,8 @@ a {
   position: absolute;
   left: 50%;
   top: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 .rulePop .ruleContent .close {
