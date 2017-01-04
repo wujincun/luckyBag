@@ -1,0 +1,279 @@
+/*CSS重置*/
+body,ul,ol,li,p,h1,h2,h3,h4,h5,h6,form,fildset,table,td,img,div,dl,dt,dd,input{margin:0;padding:0;border:0;}
+img{border:none;}
+ul,ol{ list-style:none;}
+input,select,textarea{outline:none;}
+textarea{resize:none;}
+a{ text-decoration:none;}
+/*清浮动*/
+.clearfix:after{content:"";display:block;clear:both;}
+.clearfix{zoom:1;}
+.fl{  float: left;  }
+.fr{float: right}
+
+  @-webkit-keyframes clock {
+    0% {-webkit-transform:rotate(0);transform:rotate(0);}
+    30% {-webkit-transform:rotate(-10deg);transform:rotate(-10deg);}
+    50% {-webkit-transform:rotate(0);transform:rotate(0);}
+    70% {-webkit-transform:rotate(10deg);transform:rotate(10deg);}
+    100% {-webkit-transform:rotate(0);transform:rotate(0);}
+  }
+
+  @keyframes clock {
+    0% {-webkit-transform:rotate(0);transform:rotate(0);}
+    30% {-webkit-transform:rotate(-10deg);transform:rotate(-10deg);}
+    50% {-webkit-transform:rotate(0);transform:rotate(0);}
+    70% {-webkit-transform:rotate(10deg);transform:rotate(10deg);}
+    100% {-webkit-transform:rotate(0);transform:rotate(0);}
+  }
+  @-webkit-keyframes go {
+    0% {-webkit-transform:scale(0.5);transform:scale(0.5)}
+    80% {-webkit-transform:scale(1.2);transform:scale(1.2)}
+    100% {-webkit-transform:scale(1);transform:scale(1)}
+  }
+  @keyframes go {
+    0% {-webkit-transform:scale(0.5);transform:scale(0.5)}
+    80% {-webkit-transform:scale(1.2);transform:scale(1.2)}
+    100% {-webkit-transform:scale(1);transform:scale(1)}
+  }
+#gameArea{
+  #gameHead{
+    position: absolute;
+    left: 0;
+    top:51px;
+    width: 100%;
+    padding: 0 33px;
+    box-sizing: border-box;
+    z-index: 20;
+    vertical-align: middle;
+    .score,.time{
+      display: inline-block;
+      height: 74px;
+      font-size: 40px;
+      color: #fff;
+    }
+    .score{
+      width: 231px;
+      height: 74px;
+      line-height: 74px;
+      text-indent: 98px;
+      background: url("../img/game/score.png") left center no-repeat;
+      background-size: contain;
+      margin-top: 6px;
+    }
+    .time{
+      width: 217px;
+      height: 85px;
+      line-height: 85px;
+      text-indent: 30px;
+      background: url("../img/game/time.png") left center no-repeat;
+      background-size: contain;
+    }
+  }
+  #countTime{
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    left:0;
+    top:0;
+    width: 100%;
+    height: 100%;
+    #cutTime{
+      width: 332px;
+      height: 332px;
+      position: absolute;
+      left:50%;
+      top: 50%;
+      margin-left: -166px;
+      margin-top: -166px;
+    }
+    .num_1{
+      background: url("../img/game/go.png") left center no-repeat;
+      background-size: contain;
+      -webkit-animation: go 0.8s;
+              animation: go 0.8s;
+    }
+    .num_2{
+      background: url("../img/game/one.png") left center no-repeat;
+      background-size: contain;
+
+    }
+    .num_3{
+      background: url("../img/game/two.png") left center no-repeat;
+      background-size: contain;
+    }
+    .num_4{
+      background: url("../img/game/three.png") left center no-repeat;
+      background-size: contain;
+    }
+  }
+}
+#popArea{
+  .popContentArea{
+    .popContent{
+      display: none;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      z-index: 100;
+      .close{
+        position: absolute;
+        background: url("../img/game/close.png") center center no-repeat;
+        width: 122px;
+        height: 122px;
+      }
+    }
+    .successPop,.failPop{
+      .close{
+        top: -105px;
+        right: -11px;
+      }
+    }
+    .getCouponPop,.noCouponPop,.changeCouponPop{
+      .close{
+        top: -115px;
+        right: -97px;
+      }
+    }
+    .clock{
+      background: url("../img/game/clock.png") left center no-repeat;
+      width: 263px;
+      height: 296px;
+      background-size: contain;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -148px;
+      margin-left: -131px;
+      -webkit-animation: clock .3s;
+              animation: clock .3s;
+    }
+    .successPop{
+      background: url("../img/game/success.png") left center no-repeat;
+      width: 637px;
+      height: 676px;
+      margin-left: -318px;
+      margin-top: -338px;
+      background-size: contain;
+      .successText{
+         margin-top: 174px;
+        text-align: center;
+        p{
+          line-height: 36px;
+          color: #fff;
+          font-size: 30px;
+        }
+      }
+      .bags{
+        margin-top: 200px;
+        padding: 0 80px;
+        .bag{
+          float: left;
+          width: 125px;
+          height: 125px;
+          margin-right: 50px;
+          &:last-child{
+            margin-right: 0;
+          }
+        }
+      }
+    }
+    .failPop{
+      background: url("../img/game/fail.png") left center no-repeat;
+      background-size: contain;
+      width: 637px;
+      height: 438px;
+      margin-left: -318px;
+      margin-top: -219px;
+      .btnArea{
+        margin-top: 282px;
+        padding: 0 66px;
+        .share,.playAgain{
+          width: 234px;
+          height: 70px;
+          float: left;
+        }
+        .share{
+          margin-right: 34px;
+        }
+      }
+    }
+    .getCouponPop,.noCouponPop{
+      background: url("../img/game/getCoupon.png") left center no-repeat;
+      width: 468px;
+      height: 563px;
+      margin-left: -234px;
+      margin-top: -200px;
+      text-align: center;
+      .couponInfo{
+        margin-top: 105px;
+        font-size: 34px;
+        color: #e30023;
+        line-height: 50px;
+      }
+      .myCoupon{
+        margin-top: 16px;
+        font-size: 26px;
+        color: #dba900;
+        line-height: 36px;
+        a{
+          color: #dba900;
+        }
+      }
+      .share{
+        display: inline-block;
+        width: 220px;
+        height: 75px;
+        margin-top: 284px;
+      }
+    }
+    .changeCouponPop{
+      background: url("../img/game/changeCoupon.png") left center no-repeat;
+      width: 469px;
+      height: 563px;
+      margin-top: -282px;
+      margin-left: -235px;
+      text-align: center;
+      .changeText{
+        margin-top: 112px;
+        p{
+          font-size: 28px;
+          color: #e30023;
+          line-height: 50px;
+        }
+      }
+      .change{
+        display: inline-block;
+        margin-top: 280px;
+        width: 300px;
+        height: 72px;
+      }
+    }
+  }
+  .restArea{
+    .mask{
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 50;
+    }
+    .shareHint{
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 45px;
+      background: url("../img/game/shareHint.png") left center no-repeat;
+      width: 203px;
+      height: 316px;
+      z-index: 60;
+    }
+  }
+}
+
+
+
+
+

@@ -1,0 +1,376 @@
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fildset,
+table,
+td,
+img,
+div,
+dl,
+dt,
+dd,
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+img {
+  border: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input,
+select,
+textarea {
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*清浮动*/
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+@-webkit-keyframes gameBag {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: 5.5625rem;
+  }
+}
+
+@keyframes gameBag {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: 5.5625rem;
+  }
+}
+
+@-webkit-keyframes gameText {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 5.5625rem;
+  }
+}
+
+@keyframes gameText {
+  from {
+    width: 0;
+  }
+
+  to {
+    width: 5.5625rem;
+  }
+}
+
+@-webkit-keyframes spread {
+  to {
+    left: 0;
+    right: 0;
+  }
+}
+
+@keyframes spread {
+  to {
+    left: 0;
+    right: 0;
+  }
+}
+
+@-webkit-keyframes leftScroll {
+  from {
+    left: 4.203125rem;
+  }
+  to {
+    left: 0.65625rem;
+  }
+}
+
+@keyframes leftScroll {
+  from {
+    left: 4.203125rem;
+  }
+  to{
+    left: 0.65625rem;
+  }
+}
+
+@-webkit-keyframes rightScroll {
+  from {
+    right: 4.1875rem;
+  }
+  to {
+    right: 0.59375rem;
+  }
+}
+
+@keyframes rightScroll {
+  from {
+    right: 4.1875rem;
+  }
+  to{
+    right: 0.59375rem;
+  }
+}
+
+@-webkit-keyframes text {
+  0% {
+    -webkit-transform: translate(50%, 50%);
+            transform: translate(50%, 50%);
+  }
+}
+
+@keyframes text {
+  0% {
+    -webkit-transform: translate(50%, 50%);
+            transform: translate(50%, 50%);
+  }
+}
+
+.part {
+  margin-top: -0.1rem;
+}
+
+.part .hrefArea {
+  display: inline-block;
+  height: 1.75rem;
+  width: 100%;
+  position: relative;
+}
+
+.part .hrefArea .leftScroll,
+.part .hrefArea .rightScroll {
+  position: absolute;
+  z-index: 5;
+  width: 0.8125rem;
+  height: 1.75rem;
+  top: 0;
+}
+
+.part .hrefArea .leftScroll {
+  background: url("../img/h5/leftScroll.png") center center no-repeat;
+  left: 4.203125rem;
+  background-size: contain;
+}
+
+.part .hrefArea .rightScroll {
+  background: url("../img/h5/rightScroll.png") center center no-repeat;
+  right: 4.1875rem;
+  background-size: contain;
+}
+
+.part .hrefArea .food,
+.part .hrefArea .song,
+.part .hrefArea .beauty,
+.part .hrefArea .knead {
+  height: 1.6875rem;
+  position: absolute;
+  left: 50%;
+  right: 50%;
+  text-align: center;
+}
+
+.part .hrefArea.active .leftScroll {
+  -webkit-animation: leftScroll 2s forwards;
+          animation: leftScroll 2s forwards;
+}
+
+.part .hrefArea.active .rightScroll {
+  -webkit-animation: rightScroll 2s forwards;
+          animation: rightScroll 2s forwards;
+}
+
+.part .hrefArea.active .food,
+.part .hrefArea.active .song,
+.part .hrefArea.active .beauty,
+.part .hrefArea.active .knead {
+  -webkit-animation: spread 1.6s linear forwards;
+          animation: spread 1.6s linear forwards;
+}
+
+.part1 {
+  position: relative;
+  background: url("../img/h5/luckyBagH5Background_01.jpg") center center no-repeat;
+  width: 10rem;
+  height: 8.21875rem;
+  background-size: contain;
+}
+
+.part1 .rule {
+  position: absolute;
+  top: 0.375rem;
+  right: 0.40625rem;
+  font-size: 0.53125rem;
+  line-height: 0.53125rem;
+  color: #91000a;
+  font-weight: bold;
+  padding-bottom: 0.046875rem;
+  border-bottom: 0.03125rem solid #91000a;
+}
+
+.part2 {
+  background: url("../img/h5/luckyBagH5Background_02.jpg") center center no-repeat;
+  width: 10rem;
+  height: 9rem;
+  background-size: contain;
+}
+
+.part2 .gameStart {
+  position: relative;
+  display: inline-block;
+  margin: 0 1.40625rem 0 1.5625rem;
+}
+
+.part2 .gameStart .gameBag {
+  position: absolute;
+  left: 5.5625rem;
+  top: 0;
+  background: url("../img/h5/gameBag.png") center center no-repeat;
+  background-size: contain;
+  width: 1.90625rem;
+  height: 1.8125rem;
+}
+
+.part2 .gameStart .gameText {
+  width: 5.5625rem;
+  margin: 0.6875rem 0 0 0.5rem;
+  overflow: hidden;
+}
+.part2 .gameStart.active .gameText{
+   -webkit-animation: gameText 2s ease-in-out;
+   animation: gameText 2s ease-in-out;
+ }
+.part2 .gameStart.active .gameBag{
+  -webkit-animation: gameBag 2s ease-in-out;
+  animation: gameBag 2s ease-in-out;
+}
+.part2 .gameStart .gameText img {
+  width: 5.546875rem;
+}
+
+.part2 .foodArea {
+  margin-top: 1.71875rem;
+}
+
+.part2 .foodArea .food {
+  background: url("../img/h5/food.png") center center no-repeat;
+  background-size: 7.765625rem 1.6875rem;
+}
+
+.part2 .songArea {
+  margin-top: 1.984375rem;
+}
+
+.part2 .songArea .song {
+  background: url("../img/h5/song.png") center center no-repeat;
+  background-size: 7.765625rem 1.6875rem;
+}
+
+.part3 {
+  background: url("../img/h5/luckyBagH5Background_03.jpg") center center no-repeat;
+  width: 10rem;
+  height: 7.578125rem;
+  background-size: contain;
+}
+
+.part3 .beautyArea {
+  margin-top: 2.03125rem;
+}
+
+.part3 .beautyArea .beauty {
+  background: url("../img/h5/beauty.png") center center no-repeat;
+  background-size: 7.765625rem 1.6875rem;
+}
+
+.part3 .kneadArea {
+  margin-top: 2.171875rem;
+}
+
+.part3 .kneadArea .knead {
+  background: url("../img/h5/knead.png") center center no-repeat;
+  background-size: 7.765625rem 1.6875rem;
+}
+
+.part4 {
+  background: url("../img/h5/luckyBagH5Background_04.jpg") center center no-repeat;
+  width: 10rem;
+  height: 4.703125rem;
+  background-size: contain;
+}
+
+.rulePop {
+  display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10;
+}
+
+.rulePop .ruleContent {
+  background: url("../img/h5/rule.png") center center no-repeat;
+  width: 8.203125rem;
+  height: 9.5625rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-size: contain;
+}
+
+.rulePop .ruleContent .close {
+  position: absolute;
+  top: -2.03125rem;
+  right: -0.78125rem;
+  background: url("../img/h5/close.png") center center no-repeat;
+  background-size: 0.984375rem 0.984375rem;
+  width: 1.953125rem;
+  height: 1.953125rem;
+}

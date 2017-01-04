@@ -1,0 +1,428 @@
+/*CSS重置*/
+
+body,
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+form,
+fildset,
+table,
+td,
+img,
+div,
+dl,
+dt,
+dd,
+input {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+img {
+  border: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input,
+select,
+textarea {
+  outline: none;
+}
+
+textarea {
+  resize: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+/*清浮动*/
+
+.clearfix:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+@-webkit-keyframes clock {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  30% {
+    -webkit-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  70% {
+    -webkit-transform: rotate(10deg);
+            transform: rotate(10deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+}
+
+@keyframes clock {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  30% {
+    -webkit-transform: rotate(-10deg);
+            transform: rotate(-10deg);
+  }
+
+  50% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+
+  70% {
+    -webkit-transform: rotate(10deg);
+            transform: rotate(10deg);
+  }
+
+  100% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+}
+
+@-webkit-keyframes go {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+
+  80% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes go {
+  0% {
+    -webkit-transform: scale(0.5);
+            transform: scale(0.5);
+  }
+
+  80% {
+    -webkit-transform: scale(1.2);
+            transform: scale(1.2);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+#gameArea #gameHead {
+  position: absolute;
+  left: 0;
+  top: 0.796875rem;
+  width: 100%;
+  padding: 0 0.515625rem;
+  box-sizing: border-box;
+  z-index: 20;
+  vertical-align: middle;
+}
+
+#gameArea #gameHead .score,
+#gameArea #gameHead .time {
+  display: inline-block;
+  height: 1.15625rem;
+  font-size: 0.625rem;
+  color: #fff;
+}
+
+#gameArea #gameHead .score {
+  width: 3.609375rem;
+  height: 1.15625rem;
+  line-height: 1.15625rem;
+  text-indent: 1.53125rem;
+  background: url("../img/game/score.png") center center no-repeat;
+  background-size: contain;
+  margin-top: 0.09375rem;
+}
+
+#gameArea #gameHead .time {
+  width: 3.390625rem;
+  height: 1.328125rem;
+  line-height: 1.328125rem;
+  text-indent: 0.46875rem;
+  background: url("../img/game/time.png") center center no-repeat;
+  background-size: contain;
+}
+
+#gameArea #countTime {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#gameArea #countTime #cutTime {
+  width: 5.1875rem;
+  height: 5.1875rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -2.59375rem;
+  margin-top: -2.59375rem;
+}
+
+#gameArea #countTime .num_1 {
+  background: url("../img/game/go.png") center center no-repeat;
+  background-size: contain;
+  -webkit-animation: go 0.8s;
+          animation: go 0.8s;
+}
+
+#gameArea #countTime .num_2 {
+  background: url("../img/game/one.png") center center no-repeat;
+  background-size: contain;
+}
+
+#gameArea #countTime .num_3 {
+  background: url("../img/game/two.png") center center no-repeat;
+  background-size: contain;
+}
+
+#gameArea #countTime .num_4 {
+  background: url("../img/game/three.png") center center no-repeat;
+  background-size: contain;
+}
+
+#popArea .popContentArea .popContent {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 100;
+}
+
+#popArea .popContentArea .popContent .close {
+  position: absolute;
+  background: url("../img/game/close.png") center center no-repeat;
+  background-size: 0.8125rem 0.8125rem;
+  width: 1.90625rem;
+  height: 1.90625rem;
+}
+
+#popArea .popContentArea .successPop .close,
+#popArea .popContentArea .failPop .close {
+  top: -1.640625rem;
+  right: -0.171875rem;
+}
+
+#popArea .popContentArea .getCouponPop .close,
+#popArea .popContentArea .noCouponPop .close,
+#popArea .popContentArea .changeCouponPop .close {
+  top: -1.796875rem;
+  right: -1.515625rem;
+}
+
+#popArea .popContentArea .clock {
+  background: url("../img/game/clock.png") center center no-repeat;
+  width: 4.109375rem;
+  height: 4.625rem;
+  background-size: contain;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -2.3125rem;
+  margin-left: -2.046875rem;
+  -webkit-animation: clock .3s;
+          animation: clock .3s;
+}
+
+#popArea .popContentArea .successPop {
+  background: url("../img/game/success.png") center center no-repeat;
+  width: 9.953125rem;
+  height: 10.5625rem;
+  margin-left: -4.96875rem;
+  margin-top: -5.28125rem;
+  background-size: contain;
+}
+
+#popArea .popContentArea .successPop .successText {
+  margin-top: 2.71875rem;
+  text-align: center;
+}
+
+#popArea .popContentArea .successPop .successText p {
+  line-height: 0.5625rem;
+  color: #fff;
+  font-size: 0.46875rem;
+}
+
+#popArea .popContentArea .successPop .bags {
+  margin-top: 3.125rem;
+  padding: 0 1.25rem;
+}
+
+#popArea .popContentArea .successPop .bags .bag {
+  float: left;
+  width: 1.953125rem;
+  height: 1.953125rem;
+  margin-right: 0.78125rem;
+}
+
+#popArea .popContentArea .successPop .bags .bag:last-child {
+  margin-right: 0;
+}
+
+#popArea .popContentArea .failPop {
+  background: url("../img/game/fail.png") center center no-repeat;
+  background-size: contain;
+  width: 9.953125rem;
+  height: 6.84375rem;
+  margin-left: -4.96875rem;
+  margin-top: -3.421875rem;
+}
+
+#popArea .popContentArea .failPop .btnArea {
+  margin-top: 4.40625rem;
+  padding: 0 1.03125rem;
+}
+
+#popArea .popContentArea .failPop .btnArea .share,
+#popArea .popContentArea .failPop .btnArea .playAgain {
+  width: 3.65625rem;
+  height: 1.09375rem;
+  float: left;
+}
+
+#popArea .popContentArea .failPop .btnArea .share {
+  margin-right: 0.53125rem;
+}
+
+#popArea .popContentArea .getCouponPop,
+#popArea .popContentArea .noCouponPop {
+  background: url("../img/game/getCoupon.png") center center no-repeat;
+  width: 7.3125rem;
+  height: 8.796875rem;
+  margin-left: -3.65625rem;
+  margin-top: -3.125rem;
+  text-align: center;
+}
+
+#popArea .popContentArea .getCouponPop .couponInfo,
+#popArea .popContentArea .noCouponPop .couponInfo {
+  margin-top: 1.640625rem;
+  font-size: 0.53125rem;
+  color: #e30023;
+  line-height: 0.78125rem;
+}
+
+#popArea .popContentArea .getCouponPop .myCoupon,
+#popArea .popContentArea .noCouponPop .myCoupon {
+  margin-top: 0.25rem;
+  font-size: 0.40625rem;
+  color: #dba900;
+  line-height: 0.5625rem;
+}
+
+#popArea .popContentArea .getCouponPop .myCoupon a,
+#popArea .popContentArea .noCouponPop .myCoupon a {
+  color: #dba900;
+}
+
+#popArea .popContentArea .getCouponPop .share,
+#popArea .popContentArea .noCouponPop .share {
+  display: inline-block;
+  width: 3.4375rem;
+  height: 1.171875rem;
+  margin-top: 4.4375rem;
+}
+
+#popArea .popContentArea .changeCouponPop {
+  background: url("../img/game/changeCoupon.png") center center no-repeat;
+  width: 7.328125rem;
+  height: 8.796875rem;
+  margin-top: -4.40625rem;
+  margin-left: -3.671875rem;
+  text-align: center;
+}
+
+#popArea .popContentArea .changeCouponPop .changeText {
+  margin-top: 1.75rem;
+}
+
+#popArea .popContentArea .changeCouponPop .changeText p {
+  font-size: 0.4375rem;
+  color: #e30023;
+  line-height: 0.78125rem;
+}
+
+#popArea .popContentArea .changeCouponPop .change {
+  display: inline-block;
+  margin-top: 4.375rem;
+  width: 4.6875rem;
+  height: 1.125rem;
+}
+
+#popArea .restArea .mask {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+}
+
+#popArea .restArea .shareHint {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0.703125rem;
+  background: url("../img/game/shareHint.png") center center no-repeat;
+  width: 3.171875rem;
+  height: 4.9375rem;
+  z-index: 60;
+}
