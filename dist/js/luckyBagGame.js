@@ -2,6 +2,7 @@
  * Created by Administrator on 2016/12/24.
  */
 var lucyBag = {
+    $moveHint : $('#moveHint'),
     $popContentArea : $('.popContentArea'),
     $restArea : $('.restArea'),
     w: $(window).width(),
@@ -16,20 +17,21 @@ var lucyBag = {
     score: 0,//分值
     timer:null,//30秒倒计时
     timeGap : 0,//每一帧的时间间隔
+    hintFlag: true, //提示标示
     API:{
-        getResult:'mock/getResult.json'
+        getResult:'/ajax/aj_springFestival001.php'
     },
     init: function () {
         var _this = this;
         //加载完图片后render
         var imgs = [
-            'img/game/background.jpg',
-            'img/game/backgroundPlay.jpg',
-            'img/game/bag.png',
-            'img/game/landMine.png',
-            'img/game/child.png',
-            'img/game/addScore.png',
-            'img/game/reduceScore.png'
+            './img/game/background.jpg',
+            './img/game/backgroundPlay.jpg',
+            './img/game/bag.png',
+            './img/game/landMine.png',
+            './img/game/child.png',
+            './img/game/addScore.png',
+            './img/game/reduceScore.png'
         ];
         var num = imgs.length;
         for (var i = 0; i < num; i++) {
@@ -88,16 +90,8 @@ var lucyBag = {
             if (readyCountNum == 0) {
                 clearInterval(readyCountTimer);
                 $('#countTime').hide();
-                _this.gameLoop(ctx);
-                _this.bind();
-                _this.countDownTime({
-                    duration:30,
-                    step:0.01,
-                    ele:$('.time'),
-                    handler4ToTime:function(){
-                        _this.gameOver();
-                    }
-                });
+                _this.$moveHint.show();
+                _this.bind(ctx);
             } else {
                 $('#cutTime').attr('class', 'num_' + readyCountNum);
             }
@@ -107,7 +101,7 @@ var lucyBag = {
         var _this = this;
         _this.background = {};
         _this.background.img = new Image();
-        _this.background.img.src = 'img/game/background.jpg';
+        _this.background.img.src = './img/game/background.jpg';
         ctx.drawImage(_this.background.img,0,0,_this.w,_this.h)
     },
     drawBags: function (ctx) {
@@ -119,7 +113,7 @@ var lucyBag = {
         for (var i = 0; i < _this.bagNum; i++) {
             _this.bags[i] = {};
             _this.bags[i].img = new Image();
-            _this.bags[i].img.src = 'img/game/bag.png';
+            _this.bags[i].img.src = './img/game/bag.png';
             var bagW = Math.random()*(_this.maxBagSize - _this.minBagSize) + _this.minBagSize;
             var bagH = bagW * 158/163;
             _this.bags[i].renderSize = [bagW, bagH];
@@ -139,7 +133,7 @@ var lucyBag = {
         for (var i = 0; i < _this.landmineNum; i++) {
             _this.landmines[i] = {};
             _this.landmines[i].img = new Image();
-            _this.landmines[i].img.src = 'img/game/landMine.png';
+            _this.landmines[i].img.src = './img/game/landMine.png';
             var landmineW = Math.random()*(_this.maxLandMineSize - _this.minLandMineSize) + _this.minLandMineSize;
             var landmineH = landmineW * 169/135;
             _this.landmines[i].renderSize = [landmineW, landmineH];
@@ -154,7 +148,7 @@ var lucyBag = {
         var _this = this;
         _this.child = {};
         _this.child.img = new Image();
-        _this.child.img.src = 'img/game/child.png';
+        _this.child.img.src = './img/game/child.png';
         _this.child.renderSize = [168*_this.w/640, 216*_this.w/640]; //168*216
         var x = (_this.w - _this.child.renderSize[0]) / 2;
         var y =  _this.h - _this.child.renderSize[1] - 54*_this.h/1136;
@@ -176,7 +170,7 @@ var lucyBag = {
             //清除
             ctx.clearRect(0, 0, _this.w, _this.h);
             //画
-            _this.background.img.src = "img/game/backgroundPlay.jpg";
+            _this.background.img.src = "./img/game/backgroundPlay.jpg";
             ctx.drawImage(_this.background.img,0,0,_this.w,_this.h);
             ctx.drawImage(_this.child.img, _this.child.position[0], _this.child.position[1], _this.child.renderSize[0], _this.child.renderSize[1])
             _this.loopBags(ctx);//福袋
@@ -195,7 +189,7 @@ var lucyBag = {
                     $('.score').text(_this.score);
                     var score = {};
                     score.img = new Image();
-                    score.img.src = "img/game/addScore.png";
+                    score.img.src = "./img/game/addScore.png";
                     score.renderSize = [_this.w*45/640,_this.w*27/640]; //45*27
                     score.speed = (50 * _this.h/1136)/500;
                     score.position = [_this.child.position[0] + (_this.child.renderSize[0] - score.renderSize[0])/2,_this.child.position[1]]
@@ -218,7 +212,7 @@ var lucyBag = {
                     $('.score').text(_this.score);
                     var score = {};
                     score.img = new Image();
-                    score.img.src = "img/game/reduceScore.png";
+                    score.img.src = "./img/game/reduceScore.png";
                     score.renderSize = [_this.w*64/640,_this.w*30/640]; //64*30
                     score.speed = (50 * _this.h/1136)/500;
                     score.position = [_this.child.position[0] + (_this.child.renderSize[0] - score.renderSize[0])/2,_this.child.position[1]];
@@ -243,10 +237,23 @@ var lucyBag = {
             }
         }
     },
-    bind: function () {
+    bind: function (ctx) {
         var _this = this;
         var initX, moveY, moveX;
         canvas.addEventListener('touchstart', function (e) {
+            if(_this.hintFlag){
+                _this.$moveHint.hide();
+                _this.gameLoop(ctx);
+                _this.countDownTime({
+                    duration:30,
+                    step:0.01,
+                    ele:$('.time'),
+                    handler4ToTime:function(){
+                        _this.gameOver();
+                    }
+                });
+                _this.flag = false;
+            }
             e.preventDefault();
             moveX = initX = e.targetTouches[0].pageX;
             moveY =  e.targetTouches[0].pageY;
@@ -287,13 +294,13 @@ var lucyBag = {
                 type:'GET',
                 dataType:'json',
                 data:{
-
+                    type: "yx"
                 }
             }).done(function (data) {
                 var code = data.code;
                 if(code == 200){
                     var $getCouponPop = _this.$popContentArea.find('.getCouponPop');
-                    $getCouponPop.find('.couponMoneyNum').text(data.result.coupon);
+                    $getCouponPop.find('.couponMoneyNum').text(data.result.price);
                     $getCouponPop.show().siblings().hide();
                 }else{
                     var $noCouponPop = _this.$popContentArea.find('.noCouponPop');
@@ -312,7 +319,7 @@ var lucyBag = {
                 (bagItem.position[0] < _this.child.position[0] && bagItem.position[0] + bagItem.renderSize[0] > _this.child.position[0] + _this.child.renderSize[0])
             )
         ) {
-            return true 
+            return true
         }
     },
     //倒计时
@@ -338,7 +345,7 @@ var lucyBag = {
         _this.$restArea.find('.mask').show().siblings().hide();
         $clock.show().siblings().hide();
         setTimeout(function(){
-             $clock.hide();
+            $clock.hide();
             _this.handleResult();
         },1000)
     },
@@ -346,7 +353,11 @@ var lucyBag = {
     handleResult:function () {
         var _this = this;
         if(_this.score >= 80){
-            _this.$popContentArea.find('.successPop').show().siblings().hide();
+            var $successPop = _this.$popContentArea.find('.successPop');
+            $successPop.find('.successText').find('.bagNum').text(_this.score/5);
+            $successPop.find('.successText').find('.bagScore').text(_this.score);
+            $successPop.show().siblings().hide();
+
         }else{
             _this.$popContentArea.find('.failPop').show().siblings().hide()
         }
