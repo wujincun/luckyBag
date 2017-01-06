@@ -242,17 +242,17 @@ var lucyBag = {
         var initX, moveY, moveX;
         canvas.addEventListener('touchstart', function (e) {
             if(_this.hintFlag){
+                _this.hintFlag = false;
                 _this.$moveHint.hide();
                 _this.gameLoop(ctx);
                 _this.countDownTime({
-                    duration:30,
+                    duration:10,
                     step:0.01,
                     ele:$('.time'),
                     handler4ToTime:function(){
                         _this.gameOver();
                     }
                 });
-                _this.flag = false;
             }
             e.preventDefault();
             moveX = initX = e.targetTouches[0].pageX;

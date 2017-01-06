@@ -354,6 +354,7 @@ a {
 #popArea .popContentArea .getCouponPop,
 #popArea .popContentArea .noCouponPop {
   background: url("../img/game/getCoupon.png") center center no-repeat;
+  background-size: contain;
   width: 7.3125rem;
   height: 8.796875rem;
   margin-left: -3.65625rem;
@@ -392,6 +393,7 @@ a {
 
 #popArea .popContentArea .changeCouponPop {
   background: url("../img/game/changeCoupon.png") center center no-repeat;
+  background-size: contain;
   width: 7.328125rem;
   height: 8.796875rem;
   margin-top: -4.40625rem;
